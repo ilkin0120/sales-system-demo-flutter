@@ -1,16 +1,47 @@
-# test_task
+# Sales System Demo Flutter
 
-A new Flutter project.
+A Flutter-based application designed to manage sales and orders for table-specific environments, featuring product grouping, order tracking, and an intuitive user interface. Ideal for restaurants, cafes, or as a demonstration project.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Features
+- **Product Management**: Group products into categories for easy navigation.
+- **Order Handling**: Add, update, or delete orders for specific tables.
+- **State Management**: Powered by `flutter_bloc` for efficient state handling.
+- **SQLite Integration**: Offline data persistence for seamless operation.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
+- **Flutter**: Framework for cross-platform development.
+- **flutter_bloc**: State management solution.
+- **SQLite**: Local database for data persistence.
+- **Dart**: Programming language for Flutter development.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ilkin0120/sales-system-demo-flutter.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd sales-system-demo-flutter
+   ```
+3. Get the dependencies:
+   ```bash
+   flutter pub get
+   ```
+4. Run the project:
+   ```bash
+   flutter run
+   ```
+
+---
+
+## Demonstration
+https://www.youtube.com/shorts/iuVnJL1x5YQ
+
+
+
