@@ -18,7 +18,6 @@ class HomeCubit extends Cubit<HomeState> {
       final areas = await _homeRepository.fetchSeatingAreasByZone(zone.id!);
       result[zone] = areas;
     }
-    print(result.keys.toList()[0].name);
     emit(state.copyWith(zoneAndSeatingAreas: result));
   }
 }
