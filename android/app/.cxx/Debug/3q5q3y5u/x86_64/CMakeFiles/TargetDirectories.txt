@@ -1,0 +1,2 @@
+D:/sales-system-demo-flutter/android/app/.cxx/Debug/3q5q3y5u/x86_64/CMakeFiles/edit_cache.dir
+D:/sales-system-demo-flutter/android/app/.cxx/Debug/3q5q3y5u/x86_64/CMakeFiles/rebuild_cache.dir
