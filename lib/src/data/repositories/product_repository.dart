@@ -1,6 +1,6 @@
 // Получить все группы
 import 'package:sqflite/sqflite.dart';
-import 'package:test_task/src/data/db_helper.dart';
+import 'package:test_task/core/db_helper.dart';
 
 import '../models/product.dart';
 import '../models/product_group.dart';

@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:test_task/src/data/models/seating_area.dart';
 import 'package:test_task/src/data/models/zone.dart';
 
-import '../db_helper.dart';
+import '../../../core/db_helper.dart';
 
 abstract class IHomeRepository {
   Future<List<ZoneModel>> fetchZones();

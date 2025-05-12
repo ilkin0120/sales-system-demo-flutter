@@ -5,7 +5,7 @@ import 'package:test_task/src/cubits/cashier/cashier_cubit.dart';
 import 'package:test_task/src/cubits/home/home_cubit.dart';
 import 'package:test_task/src/cubits/orders/order_cubit.dart';
 import 'package:test_task/src/cubits/sales/product_cubit.dart';
-import 'package:test_task/src/route/route_names.dart';
+import 'package:test_task/core/route/route_names.dart';
 import 'package:test_task/src/screens/cashier_result/cashier_result.dart';
 import 'package:test_task/src/screens/sales/sales.dart';
 

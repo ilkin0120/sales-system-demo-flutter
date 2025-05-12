@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/src/cubits/cashier/cashier_cubit.dart';
-import 'package:test_task/src/route/route_names.dart';
+import 'package:test_task/core/route/route_names.dart';
 
 class CashierResult extends StatelessWidget {
   const CashierResult({super.key});

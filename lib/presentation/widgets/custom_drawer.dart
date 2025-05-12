@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_task/core/route/route_names.dart';
 import 'package:intl/intl.dart';
+import '../../core/route/route_names.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -77,4 +77,4 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
-}
+} 

@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../db_helper.dart';
+import '../../../core/db_helper.dart';
 import '../models/bill.dart';
 
 abstract class ICashierRepository {

@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:test_task/src/data/models/customer_order.dart';
 
-import '../db_helper.dart';
+import '../../../core/db_helper.dart';
 
 abstract class IOrderRepository {
   Future<List<CustomerOrder>> getOrdersBySeatingId(int seatId);
