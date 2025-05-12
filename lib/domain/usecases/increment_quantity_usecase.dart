@@ -9,4 +9,4 @@ class IncrementQuantityUseCase {
   Future<OrderEntity> execute(String orderId) {
     return repository.incrementQuantity(orderId);
   }
-} 
+}

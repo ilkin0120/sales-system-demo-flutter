@@ -9,4 +9,4 @@ class GetZonesUseCase {
   Future<List<ZoneEntity>> execute() {
     return repository.getZones();
   }
-} 
+}

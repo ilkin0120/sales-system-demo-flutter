@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 
+import '../../../core/services/bill_update_service.dart';
 import '../../../domain/entities/order_entity.dart';
 import '../../../domain/usecases/add_order_usecase.dart';
 import '../../../domain/usecases/decrement_quantity_usecase.dart';
@@ -15,6 +16,8 @@ class OrderCubit extends Cubit<OrderState> {
   final IncrementQuantityUseCase _incrementQuantityUseCase;
   final DecrementQuantityUseCase _decrementQuantityUseCase;
   final DeleteOrderUseCase _deleteOrderUseCase;
+  final BillUpdateService _billUpdateService;
+  int? _currentSeatingAreaId;
 
   OrderCubit({
     required GetOrdersBySeatingIdUseCase getOrdersBySeatingIdUseCase,
@@ -22,15 +25,18 @@ class OrderCubit extends Cubit<OrderState> {
     required IncrementQuantityUseCase incrementQuantityUseCase,
     required DecrementQuantityUseCase decrementQuantityUseCase,
     required DeleteOrderUseCase deleteOrderUseCase,
+    required BillUpdateService billUpdateService,
   })  : _getOrdersBySeatingIdUseCase = getOrdersBySeatingIdUseCase,
         _addOrderUseCase = addOrderUseCase,
         _incrementQuantityUseCase = incrementQuantityUseCase,
         _decrementQuantityUseCase = decrementQuantityUseCase,
         _deleteOrderUseCase = deleteOrderUseCase,
+        _billUpdateService = billUpdateService,
         super(const OrderState());
 
   Future<void> getAllOrdersBySeatId(int seatId) async {
     emit(state.copyWith(status: OrderStatus.loading));
+    _currentSeatingAreaId = seatId;
 
     try {
       final orders = await _getOrdersBySeatingIdUseCase.execute(seatId);
@@ -61,6 +67,9 @@ class OrderCubit extends Cubit<OrderState> {
         orders: newList,
         status: OrderStatus.loaded,
       ));
+
+      // Обновляем общую сумму счета
+      _updateTotalBill(seatingAreaId);
     } catch (e) {
       emit(state.copyWith(
         status: OrderStatus.error,
@@ -79,6 +88,11 @@ class OrderCubit extends Cubit<OrderState> {
       }).toList();
 
       emit(state.copyWith(orders: updatedOrders));
+
+      // Обновляем общую сумму счета
+      if (_currentSeatingAreaId != null) {
+        _updateTotalBill(_currentSeatingAreaId!);
+      }
     } catch (e) {
       emit(state.copyWith(
         status: OrderStatus.error,
@@ -107,11 +121,30 @@ class OrderCubit extends Cubit<OrderState> {
 
         emit(state.copyWith(orders: updatedOrders));
       }
+
+      // Обновляем общую сумму счета
+      if (_currentSeatingAreaId != null) {
+        _updateTotalBill(_currentSeatingAreaId!);
+      }
     } catch (e) {
       emit(state.copyWith(
         status: OrderStatus.error,
         errorMessage: e.toString(),
       ));
     }
+  }
+
+  // Метод для расчета общей суммы счета и отправки обновления
+  void _updateTotalBill(int seatingAreaId) {
+    double total = 0;
+
+    for (final order in state.orders) {
+      if (order.seatingAreaId == seatingAreaId) {
+        total += order.productPrice * order.quantity;
+      }
+    }
+
+    // Отправляем обновление через сервис
+    _billUpdateService.updateBill(seatingAreaId, total);
   }
 }

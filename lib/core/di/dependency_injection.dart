@@ -27,10 +27,14 @@ import '../../presentation/cubits/cashier/cashier_cubit.dart';
 import '../../presentation/cubits/home/home_cubit.dart';
 import '../../presentation/cubits/order/order_cubit.dart';
 import '../../presentation/cubits/product/product_cubit.dart';
+import '../services/bill_update_service.dart';
 
 final getIt = GetIt.instance;
 
 void setupDependencies() {
+  // Services
+  getIt.registerLazySingleton<BillUpdateService>(() => BillUpdateService());
+
   // Database
   getIt.registerLazySingleton<DbHelper>(() => DbHelper());
 
@@ -114,11 +118,13 @@ void setupDependencies() {
       incrementQuantityUseCase: getIt(),
       decrementQuantityUseCase: getIt(),
       deleteOrderUseCase: getIt(),
+      billUpdateService: getIt(),
     ),
   );
   getIt.registerFactory<CashierCubit>(
     () => CashierCubit(
       getBillsUseCase: getIt(),
+      billUpdateService: getIt(),
     ),
   );
 } 
