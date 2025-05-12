@@ -52,6 +52,8 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
+  bool get hasOrders => state.orders.isNotEmpty;
+
   void addNewOrder(int productId, int seatingAreaId, String productName,
       double productPrice) {
     try {
@@ -146,5 +148,36 @@ class OrderCubit extends Cubit<OrderState> {
 
     // Отправляем обновление через сервис
     _billUpdateService.updateBill(seatingAreaId, total);
+  }
+
+  // Метод для удаления всех заказов текущего столика
+  void deleteAllOrdersForCurrentTable() {
+    if (_currentSeatingAreaId == null) return;
+
+    try {
+      final ordersToDelete = state.orders
+          .where((order) => order.seatingAreaId == _currentSeatingAreaId)
+          .toList();
+
+      for (final order in ordersToDelete) {
+        _deleteOrderUseCase.execute(order.id);
+      }
+
+      final updatedOrders = state.orders
+          .where((order) => order.seatingAreaId != _currentSeatingAreaId)
+          .toList();
+
+      emit(state.copyWith(
+        status: OrderStatus.loaded,
+        orders: updatedOrders,
+      ));
+
+      _billUpdateService.updateBill(_currentSeatingAreaId!, 0);
+    } catch (e) {
+      emit(state.copyWith(
+        status: OrderStatus.error,
+        errorMessage: e.toString(),
+      ));
+    }
   }
 }
