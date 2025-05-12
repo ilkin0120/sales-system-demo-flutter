@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:test_task/src/data/models/product.dart';
 import 'package:test_task/src/data/models/product_group.dart';
 

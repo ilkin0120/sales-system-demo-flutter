@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/src/cubits/orders/order_cubit.dart';
 import 'package:test_task/src/cubits/sales/product_cubit.dart';
-import 'package:test_task/src/screens/sales/widgets/bottom_search.dart';
 import 'bottom_card.dart';
 import 'group_box.dart';
 

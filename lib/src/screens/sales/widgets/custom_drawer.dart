@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:test_task/src/route/route_names.dart';
+import 'package:intl/intl.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+
+    String formattedDateTime =
+        '(${DateFormat('dd.MM.yyyy HH:mm').format(now)})';
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Шапка с пользователем
           Container(
             margin: const EdgeInsets.only(top: 40, left: 20),
-            height: 80, // Задаём нужную высоту
-
+            height: 80,
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              // Центрируем содержимое
               children: [
                 Text(
                   'Иванов Иван Иванович',
@@ -38,11 +40,10 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
           ),
-
           ListTile(
             leading: const Icon(Icons.sync, color: Colors.blue),
             title: const Text('Синхронизация'),
-            subtitle: const Text('(19.04.2022 15:04)'),
+            subtitle: Text(formattedDateTime),
             onTap: () {},
           ),
           ListTile(

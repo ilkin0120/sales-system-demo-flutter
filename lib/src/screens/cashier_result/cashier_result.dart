@@ -11,10 +11,6 @@ class CashierResult extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Кассир'),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -22,7 +18,6 @@ class CashierResult extends StatelessWidget {
           ),
         ],
       ),
-
       body: BlocBuilder<CashierCubit, CashierState>(builder: (context, state) {
         return ListView.builder(
           itemCount: state.seatsBills.length,
@@ -30,7 +25,10 @@ class CashierResult extends StatelessWidget {
             final bill = state.seatsBills[index];
             return ListTile(
               onTap: () => Navigator.pushNamed(context, RouteNames.sales,
-                  arguments: {'seatId': bill.seatId}),
+                  arguments: {
+                    'seatId': bill.seatId,
+                    'seatingTitle': bill.seatName
+                  }),
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               leading: Container(
@@ -46,7 +44,7 @@ class CashierResult extends StatelessWidget {
                 ),
               ),
               title: const Text(
-                'Посититель',
+                'Посетитель',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
               subtitle: Text(
@@ -58,9 +56,9 @@ class CashierResult extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    '№123  15:45',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  Text(
+                    '№${(index + 1).toString()}',
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   Text(
                     bill.total.toString(),
@@ -73,8 +71,6 @@ class CashierResult extends StatelessWidget {
           },
         );
       }),
-
-      // Фиксированная нижняя панель
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -90,10 +86,8 @@ class CashierResult extends StatelessWidget {
             label: 'Смена',
           ),
         ],
-        currentIndex: 0, // Выбранный элемент
-        onTap: (index) {
-          // Обработчик нажатия на элементы
-        },
+        currentIndex: 0,
+        onTap: (index) {},
       ),
     );
   }

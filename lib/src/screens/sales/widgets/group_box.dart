@@ -9,7 +9,7 @@ class GroupBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 50,
 
       decoration: BoxDecoration(
         color: Colors.yellow[200],
@@ -18,7 +18,7 @@ class GroupBox extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(fontSize: 22),
+          style: const TextStyle(fontSize: 18),
         ),
       ),
     );

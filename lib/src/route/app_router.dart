@@ -16,7 +16,11 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case RouteNames.home:
-        return CustomPageRoute(builder: (_) => BlocProvider<HomeCubit>(create: (_)=>HomeCubit()..getAllData(),child: const Home(),));
+        return CustomPageRoute(
+            builder: (_) => BlocProvider<HomeCubit>(
+                  create: (_) => HomeCubit()..getAllData(),
+                  child: const Home(),
+                ));
       case RouteNames.sales:
         final arguments = routeSettings.arguments as Map;
         return CustomPageRoute(
@@ -32,6 +36,7 @@ class AppRouter {
                     ],
                     child: SalesModeScreen(
                       seatingAreaId: arguments['seatId'],
+                      seatingTitle: arguments['seatingTitle'],
                     )));
       case RouteNames.cashierResult:
         return CustomPageRoute(

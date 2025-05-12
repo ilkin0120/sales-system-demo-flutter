@@ -3,31 +3,11 @@ import 'package:test_task/src/screens/sales/widgets/bottom_navigation_bar.dart';
 import 'package:test_task/src/screens/sales/widgets/custom_drawer.dart';
 import 'package:test_task/src/screens/sales/widgets/orders_list.dart';
 
-class SalesModeScreen extends StatefulWidget {
+class SalesModeScreen extends StatelessWidget {
+  final String seatingTitle;
   final int seatingAreaId;
 
-  const SalesModeScreen({super.key, required this.seatingAreaId});
-
-  @override
-  State<SalesModeScreen> createState() => _SalesModeScreenState();
-}
-
-class _SalesModeScreenState extends State<SalesModeScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  const SalesModeScreen({super.key, required this.seatingAreaId,required this.seatingTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -42,40 +22,12 @@ class _SalesModeScreenState extends State<SalesModeScreen>
               },
             ),
           ),
-          title: const Text('Режим продаж'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
+          title:  Text(seatingTitle),
         ),
         drawer: const CustomDrawer(),
-        body: Column(
-          children: [
-            TabBar(
-              controller: _tabController,
-              labelColor: Theme.of(context).primaryColor,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Theme.of(context).primaryColor,
-              tabs: const [
-                Tab(text: 'Товары (2300)'),
-                Tab(text: 'Параметры'),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: const [
-                  OrdersList(),
-                  Center(child: Text('Раздел «Параметры»')),
-                ],
-              ),
-            ),
-          ],
-        ),
+        body: const OrdersList(),
         bottomNavigationBar: CustomBottomNavigationBar(
-          seatingAreaId: widget.seatingAreaId,
+          seatingAreaId: seatingAreaId,
           screenHeight: height,
         ));
   }

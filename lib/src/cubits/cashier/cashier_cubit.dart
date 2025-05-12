@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:test_task/src/data/repositories/cashier_repository.dart';
 
 import '../../data/models/bill.dart';
