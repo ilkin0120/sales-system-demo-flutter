@@ -24,8 +24,8 @@ class OrdersList extends StatelessWidget {
           itemBuilder: (context, index) {
             final order = state.orders[index];
             return ProductItem(
-              onPlusClick: () => context.read<OrderCubit>().incrementQuantity(order.id!),
-              onMinusClick: () => context.read<OrderCubit>().decrementQuantity(order.id!),
+              onPlusClick: () => context.read<OrderCubit>().incrementQuantity(order.id),
+              onMinusClick: () => context.read<OrderCubit>().decrementQuantity(order.id),
               name: order.productName,
               price: order.productPrice,
               quantity: order.quantity,

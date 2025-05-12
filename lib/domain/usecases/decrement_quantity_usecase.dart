@@ -6,7 +6,7 @@ class DecrementQuantityUseCase {
 
   DecrementQuantityUseCase(this.repository);
 
-  Future<OrderEntity> execute(int orderId) {
+  Future<OrderEntity> execute(String orderId) {
     return repository.decrementQuantity(orderId);
   }
 } 

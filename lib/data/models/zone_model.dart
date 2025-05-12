@@ -1,9 +1,12 @@
 import '../../domain/entities/zone_entity.dart';
 
-class ZoneModel extends ZoneEntity {
+class ZoneModel {
+  final int? id;
+  final String name;
+
   const ZoneModel({
-    super.id,
-    required super.name,
+    this.id,
+    required this.name,
   });
 
   Map<String, dynamic> toMap() {

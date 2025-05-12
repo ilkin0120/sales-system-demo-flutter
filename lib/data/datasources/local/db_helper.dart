@@ -65,7 +65,7 @@ class DbHelper {
         ''');
         await db.execute('''
           CREATE TABLE customer_order (
-             id INTEGER PRIMARY KEY AUTOINCREMENT,
+             id TEXT PRIMARY KEY,
              seating_area_id INTEGER NOT NULL,
              product_id INTEGER NOT NULL,
              product_name TEXT NOT NULL,

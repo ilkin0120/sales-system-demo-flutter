@@ -5,7 +5,7 @@ class DeleteOrderUseCase {
 
   DeleteOrderUseCase(this.repository);
 
-  Future<void> execute(int orderId) {
+  Future<void> execute(String orderId) {
     return repository.deleteOrder(orderId);
   }
 } 

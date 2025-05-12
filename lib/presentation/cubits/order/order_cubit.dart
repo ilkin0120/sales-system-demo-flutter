@@ -31,7 +31,7 @@ class OrderCubit extends Cubit<OrderState> {
 
   Future<void> getAllOrdersBySeatId(int seatId) async {
     emit(state.copyWith(status: OrderStatus.loading));
-    
+
     try {
       final orders = await _getOrdersBySeatingIdUseCase.execute(seatId);
       emit(state.copyWith(
@@ -46,16 +46,21 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
-  Future<void> addNewOrder(int productId, int seatingAreaId, String productName,
-      double productPrice) async {
+  void addNewOrder(int productId, int seatingAreaId, String productName,
+      double productPrice) {
     try {
-      await _addOrderUseCase.execute(
+      final newList = _addOrderUseCase.execute(
+        state.orders,
         productId,
         seatingAreaId,
         productName,
         productPrice,
       );
-      await getAllOrdersBySeatId(seatingAreaId);
+
+      emit(state.copyWith(
+        orders: newList,
+        status: OrderStatus.loaded,
+      ));
     } catch (e) {
       emit(state.copyWith(
         status: OrderStatus.error,
@@ -64,14 +69,14 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
-  Future<void> incrementQuantity(int orderId) async {
+  Future<void> incrementQuantity(String orderId) async {
     try {
       final updatedOrder = await _incrementQuantityUseCase.execute(orderId);
       final updatedOrders = state.orders.map((order) {
         if (order.id == orderId) return updatedOrder;
         return order;
       }).toList();
-      
+
       emit(state.copyWith(orders: updatedOrders));
     } catch (e) {
       emit(state.copyWith(
@@ -81,22 +86,24 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
-  Future<void> decrementQuantity(int orderId) async {
+  Future<void> decrementQuantity(String orderId) async {
     try {
-      final currentOrder = state.orders.firstWhere((order) => order.id == orderId);
-      
+      final currentOrder =
+          state.orders.firstWhere((order) => order.id == orderId);
+
       if (currentOrder.quantity > 1) {
         final updatedOrder = await _decrementQuantityUseCase.execute(orderId);
         final updatedOrders = state.orders.map((order) {
           if (order.id == orderId) return updatedOrder;
           return order;
         }).toList();
-        
+
         emit(state.copyWith(orders: updatedOrders));
       } else {
         await _deleteOrderUseCase.execute(orderId);
-        final updatedOrders = state.orders.where((order) => order.id != orderId).toList();
-        
+        final updatedOrders =
+            state.orders.where((order) => order.id != orderId).toList();
+
         emit(state.copyWith(orders: updatedOrders));
       }
     } catch (e) {
@@ -106,4 +113,4 @@ class OrderCubit extends Cubit<OrderState> {
       ));
     }
   }
-} 
+}

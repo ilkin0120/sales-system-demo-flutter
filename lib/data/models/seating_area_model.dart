@@ -1,10 +1,14 @@
 import '../../domain/entities/seating_area_entity.dart';
 
-class SeatingAreaModel extends SeatingAreaEntity {
+class SeatingAreaModel {
+  final int? id;
+  final String name;
+  final int zoneId;
+
   const SeatingAreaModel({
-    super.id,
-    required super.name,
-    required super.zoneId,
+    this.id,
+    required this.name,
+    required this.zoneId,
   });
 
   Map<String, dynamic> toMap() {

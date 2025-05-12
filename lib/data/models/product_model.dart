@@ -1,13 +1,20 @@
 import '../../domain/entities/product_entity.dart';
 
-class ProductModel extends ProductEntity {
+class ProductModel {
+  final int? id;
+  final int groupId;
+  final String name;
+  final int stock;
+  final String imageUrl;
+  final double price;
+
   const ProductModel({
-    super.id,
-    required super.groupId,
-    required super.name,
-    required super.stock,
-    required super.imageUrl,
-    required super.price,
+    this.id,
+    required this.groupId,
+    required this.name,
+    required this.stock,
+    required this.imageUrl,
+    required this.price,
   });
 
   Map<String, dynamic> toMap() {

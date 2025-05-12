@@ -1,13 +1,20 @@
 import '../../domain/entities/order_entity.dart';
 
-class OrderModel extends OrderEntity {
+class OrderModel {
+  final String id;
+  final int seatingAreaId;
+  final int productId;
+  final String productName;
+  final double productPrice;
+  final int quantity;
+
   const OrderModel({
-    super.id,
-    required super.seatingAreaId,
-    required super.productId,
-    required super.productName,
-    required super.productPrice,
-    required super.quantity,
+    required this.id,
+    required this.seatingAreaId,
+    required this.productId,
+    required this.productName,
+    required this.productPrice,
+    required this.quantity,
   });
 
   Map<String, dynamic> toMap() {

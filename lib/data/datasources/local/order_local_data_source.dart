@@ -1,12 +1,13 @@
 import 'package:sqflite/sqflite.dart';
+import 'package:uuid/uuid.dart';
 import '../../models/order_model.dart';
 import 'db_helper.dart';
 
 abstract class OrderLocalDataSource {
   Future<List<OrderModel>> getOrdersBySeatingId(int seatId);
-  Future<OrderModel> incrementQuantity(int orderId);
-  Future<OrderModel> decrementQuantity(int orderId);
-  Future<void> deleteOrder(int orderId);
+  Future<OrderModel> incrementQuantity(String orderId);
+  Future<OrderModel> decrementQuantity(String orderId);
+  Future<void> deleteOrder(String orderId);
   Future<void> addOrder(int productId, int seatingAreaId, String productName, double price);
 }
 
@@ -24,7 +25,7 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
   }
 
   @override
-  Future<OrderModel> incrementQuantity(int orderId) async {
+  Future<OrderModel> incrementQuantity(String orderId) async {
     Database db = await dbHelper.database;
     await db.rawUpdate('''
       UPDATE customer_order
@@ -41,7 +42,7 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
   }
 
   @override
-  Future<OrderModel> decrementQuantity(int orderId) async {
+  Future<OrderModel> decrementQuantity(String orderId) async {
     Database db = await dbHelper.database;
     await db.rawUpdate('''
       UPDATE customer_order
@@ -58,7 +59,7 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
   }
 
   @override
-  Future<void> deleteOrder(int orderId) async {
+  Future<void> deleteOrder(String orderId) async {
     Database db = await dbHelper.database;
     await db.delete(
       'customer_order',
@@ -87,10 +88,12 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
         whereArgs: [productId, seatingAreaId],
       );
     } else {
-      // Если запись не найдена, вставляем новую
+      // Если запись не найдена, вставляем новую с UUID
+      final String id = const Uuid().v4();
       await db.insert(
         'customer_order',
         {
+          'id': id,
           'product_id': productId,
           'seating_area_id': seatingAreaId,
           'product_name': productName,

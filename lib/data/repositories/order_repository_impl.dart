@@ -14,19 +14,19 @@ class OrderRepositoryImpl implements IOrderRepository {
   }
 
   @override
-  Future<OrderEntity> incrementQuantity(int orderId) async {
+  Future<OrderEntity> incrementQuantity(String orderId) async {
     final orderModel = await localDataSource.incrementQuantity(orderId);
     return orderModel.toEntity();
   }
 
   @override
-  Future<OrderEntity> decrementQuantity(int orderId) async {
+  Future<OrderEntity> decrementQuantity(String orderId) async {
     final orderModel = await localDataSource.decrementQuantity(orderId);
     return orderModel.toEntity();
   }
 
   @override
-  Future<void> deleteOrder(int orderId) {
+  Future<void> deleteOrder(String orderId) {
     return localDataSource.deleteOrder(orderId);
   }
 

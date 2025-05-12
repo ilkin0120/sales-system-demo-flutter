@@ -1,10 +1,14 @@
 import '../../domain/entities/bill_entity.dart';
 
-class BillModel extends BillEntity {
+class BillModel {
+  final int seatId;
+  final String seatName;
+  final double total;
+
   const BillModel({
-    required super.seatId,
-    required super.seatName,
-    required super.total,
+    required this.seatId,
+    required this.seatName,
+    required this.total,
   });
 
   Map<String, dynamic> toMap() {
