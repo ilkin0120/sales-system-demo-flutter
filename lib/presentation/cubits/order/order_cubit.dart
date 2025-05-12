@@ -72,6 +72,7 @@ class OrderCubit extends Cubit<OrderState> {
   Future<void> incrementQuantity(String orderId) async {
     try {
       final updatedOrder = await _incrementQuantityUseCase.execute(orderId);
+
       final updatedOrders = state.orders.map((order) {
         if (order.id == orderId) return updatedOrder;
         return order;

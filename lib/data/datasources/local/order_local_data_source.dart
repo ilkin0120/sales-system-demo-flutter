@@ -8,7 +8,7 @@ abstract class OrderLocalDataSource {
   Future<OrderModel> incrementQuantity(String orderId);
   Future<OrderModel> decrementQuantity(String orderId);
   Future<void> deleteOrder(String orderId);
-  Future<void> addOrder(int productId, int seatingAreaId, String productName, double price);
+  Future<void> addOrder(String id,int productId, int seatingAreaId, String productName, double price);
 }
 
 class OrderLocalDataSourceImpl implements OrderLocalDataSource {
@@ -69,7 +69,7 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
   }
 
   @override
-  Future<void> addOrder(int productId, int seatingAreaId, String productName,
+  Future<void> addOrder(String id,int productId, int seatingAreaId, String productName,
       double price) async {
     Database db = await dbHelper.database;
 
@@ -89,7 +89,6 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
       );
     } else {
       // Если запись не найдена, вставляем новую с UUID
-      final String id = const Uuid().v4();
       await db.insert(
         'customer_order',
         {

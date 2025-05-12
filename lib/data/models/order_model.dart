@@ -51,7 +51,7 @@ class OrderModel {
   }
 
   OrderEntity toEntity() {
-    return OrderEntity(
+    return OrderEntity.create(
       id: id,
       seatingAreaId: seatingAreaId,
       productId: productId,

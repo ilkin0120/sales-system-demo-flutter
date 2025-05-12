@@ -31,7 +31,7 @@ class OrderRepositoryImpl implements IOrderRepository {
   }
 
   @override
-  Future<void> addOrder(int productId, int seatingAreaId, String productName, double price) {
-    return localDataSource.addOrder(productId, seatingAreaId, productName, price);
+  Future<void> addOrder(String id,int productId, int seatingAreaId, String productName, double price) {
+    return localDataSource.addOrder(id,productId, seatingAreaId, productName, price);
   }
 } 

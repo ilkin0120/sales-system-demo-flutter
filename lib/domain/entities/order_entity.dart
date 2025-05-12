@@ -1,19 +1,36 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-class OrderEntity {
-  final String id;
-  final int seatingAreaId;
-  final int productId;
-  final String productName;
-  final double productPrice;
-  final int quantity;
+part 'order_entity.freezed.dart';
 
-  OrderEntity({
+@freezed
+abstract class OrderEntity with _$OrderEntity {
+  const OrderEntity._();
+
+  factory OrderEntity({
+    @Default('') String id,
+    required int seatingAreaId,
+    required int productId,
+    required String productName,
+    required double productPrice,
+    required int quantity,
+  }) = _OrderEntity;
+
+  factory OrderEntity.create({
     String? id,
-    required this.seatingAreaId,
-    required this.productId,
-    required this.productName,
-    required this.productPrice,
-    required this.quantity,
-  }) : id = id ?? const Uuid().v4();
+    required int seatingAreaId,
+    required int productId,
+    required String productName,
+    required double productPrice,
+    required int quantity,
+  }) {
+    return OrderEntity(
+      id: id ?? const Uuid().v4(),
+      seatingAreaId: seatingAreaId,
+      productId: productId,
+      productName: productName,
+      productPrice: productPrice,
+      quantity: quantity,
+    );
+  }
 }

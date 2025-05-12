@@ -15,7 +15,7 @@ class CashierCubit extends Cubit<CashierState> {
 
   Future<void> getAllBills() async {
     emit(state.copyWith(status: CashierStatus.loading));
-    
+
     try {
       final bills = await _getBillsUseCase.execute();
       emit(state.copyWith(
@@ -29,4 +29,4 @@ class CashierCubit extends Cubit<CashierState> {
       ));
     }
   }
-} 
+}
