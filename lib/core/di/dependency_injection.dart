@@ -1,24 +1,29 @@
 import 'package:get_it/get_it.dart';
 
+import '../../data/datasources/local/cashier_local_data_source.dart';
 import '../../data/datasources/local/db_helper.dart';
 import '../../data/datasources/local/home_local_data_source.dart';
 import '../../data/datasources/local/order_local_data_source.dart';
 import '../../data/datasources/local/product_local_data_source.dart';
+import '../../data/repositories/cashier_repository_impl.dart';
 import '../../data/repositories/home_repository_impl.dart';
 import '../../data/repositories/order_repository_impl.dart';
 import '../../data/repositories/product_repository_impl.dart';
+import '../../domain/repositories/cashier_repository_interface.dart';
 import '../../domain/repositories/home_repository_interface.dart';
 import '../../domain/repositories/order_repository_interface.dart';
 import '../../domain/repositories/product_repository_interface.dart';
 import '../../domain/usecases/add_order_usecase.dart';
 import '../../domain/usecases/decrement_quantity_usecase.dart';
 import '../../domain/usecases/delete_order_usecase.dart';
+import '../../domain/usecases/get_bills_usecase.dart';
 import '../../domain/usecases/get_orders_by_seating_id_usecase.dart';
 import '../../domain/usecases/get_product_groups_usecase.dart';
 import '../../domain/usecases/get_products_by_group_usecase.dart';
 import '../../domain/usecases/get_seating_areas_by_zone_usecase.dart';
 import '../../domain/usecases/get_zones_usecase.dart';
 import '../../domain/usecases/increment_quantity_usecase.dart';
+import '../../presentation/cubits/cashier/cashier_cubit.dart';
 import '../../presentation/cubits/home/home_cubit.dart';
 import '../../presentation/cubits/order/order_cubit.dart';
 import '../../presentation/cubits/product/product_cubit.dart';
@@ -39,6 +44,9 @@ void setupDependencies() {
   getIt.registerLazySingleton<OrderLocalDataSource>(
     () => OrderLocalDataSourceImpl(dbHelper: getIt()),
   );
+  getIt.registerLazySingleton<CashierLocalDataSource>(
+    () => CashierLocalDataSourceImpl(dbHelper: getIt()),
+  );
 
   // Repositories
   getIt.registerLazySingleton<IHomeRepository>(
@@ -49,6 +57,9 @@ void setupDependencies() {
   );
   getIt.registerLazySingleton<IOrderRepository>(
     () => OrderRepositoryImpl(localDataSource: getIt()),
+  );
+  getIt.registerLazySingleton<ICashierRepository>(
+    () => CashierRepositoryImpl(localDataSource: getIt()),
   );
 
   // UseCases
@@ -79,6 +90,9 @@ void setupDependencies() {
   getIt.registerLazySingleton<DeleteOrderUseCase>(
     () => DeleteOrderUseCase(getIt()),
   );
+  getIt.registerLazySingleton<GetBillsUseCase>(
+    () => GetBillsUseCase(getIt()),
+  );
 
   // Cubits
   getIt.registerFactory<HomeCubit>(
@@ -100,6 +114,11 @@ void setupDependencies() {
       incrementQuantityUseCase: getIt(),
       decrementQuantityUseCase: getIt(),
       deleteOrderUseCase: getIt(),
+    ),
+  );
+  getIt.registerFactory<CashierCubit>(
+    () => CashierCubit(
+      getBillsUseCase: getIt(),
     ),
   );
 } 

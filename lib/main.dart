@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/dependency_injection.dart';
 import 'core/route/app_router.dart';
+import 'presentation/cubits/cashier/cashier_cubit.dart';
 import 'presentation/cubits/home/home_cubit.dart';
 import 'presentation/cubits/order/order_cubit.dart';
 import 'presentation/cubits/product/product_cubit.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<OrderCubit>(
           create: (_) => getIt<OrderCubit>(),
+        ),
+        BlocProvider<CashierCubit>(
+          create: (_) => getIt<CashierCubit>(),
         ),
       ],
       child: MaterialApp(
