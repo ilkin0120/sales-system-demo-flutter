@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Category extends StatelessWidget {
+class GroupBox extends StatelessWidget {
   final String title;
 
-  const Category({super.key, required this.title});
+  const GroupBox({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 80,
+      height: 50,
       decoration: BoxDecoration(
         color: Colors.yellow[200],
         borderRadius: BorderRadius.circular(8),
@@ -17,9 +16,9 @@ class Category extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 18),
         ),
       ),
     );
   }
-}
+} 

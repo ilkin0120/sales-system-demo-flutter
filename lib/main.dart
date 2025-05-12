@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/route/app_router.dart';
 import 'presentation/cubits/home/home_cubit.dart';
+import 'presentation/cubits/order/order_cubit.dart';
+import 'presentation/cubits/product/product_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +27,17 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeCubit>(
           create: (_) => getIt<HomeCubit>(),
+        ),
+        BlocProvider<ProductCubit>(
+          create: (_) => getIt<ProductCubit>(),
+        ),
+        BlocProvider<OrderCubit>(
+          create: (_) => getIt<OrderCubit>(),
         ),
       ],
       child: MaterialApp(
